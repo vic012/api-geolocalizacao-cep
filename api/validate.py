@@ -19,9 +19,9 @@ class Coordenadas:
 		else:
 			#Consulta o CEP informado pelo usuário
 			api = requests.get(f'https://viacep.com.br/ws/{self._cep}/json/')
-
+			
 			#Verifica se o CEP é válido
-			if (api.status_code == 200):
+			if (api.status_code == 200) and (not 'erro' in api.json()):
 				#Transforma os dados em Json
 				endereco = api.json()
 				#rua = endereco['logradouro']
