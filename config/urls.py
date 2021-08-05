@@ -18,7 +18,7 @@ from django.urls import path, include
 from cep_geo import views
 
 urlpatterns = [
-    path('', views.erro),
+    path('/', views.erro),
     path('admin/', admin.site.urls),
     path('api/', views.semDados),
     path('api/<cep>', views.visualiza),
