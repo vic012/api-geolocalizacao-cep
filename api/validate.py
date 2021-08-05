@@ -13,6 +13,7 @@ class Coordenadas:
 		return self._resultado
 
 	def valido(self):
+		#Trata CEP's sem nada
 		if (self._cep == "00000000"):
 			return False
 		else:
