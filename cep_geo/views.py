@@ -4,7 +4,7 @@ from .validate import Coordenadas
 
 # Create your views here.
 def visualiza(request, cep):
-	#Verifica o CEP inserido
+	#Verifica o CEP inserido pelo o usuário
 	objeto_cep = Coordenadas(cep)
 	if (objeto_cep.valido()):
 		return JsonResponse(objeto_cep.resultado)
