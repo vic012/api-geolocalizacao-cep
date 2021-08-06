@@ -27,28 +27,17 @@ class Coordenadas:
 				#rua = endereco['logradouro']
 				#bairro = endereco['bairro']
 				#cidade = endereco['localidade']
-
-				#Se o endereço não tiver bairro
-				if (endereco['bairro'] == ""):
-					geolocator = Nominatim(user_agent="test_app")
-					location = geolocator.geocode(endereco['localidade'])
-					if (location != None):
-						self._resultado = {"latitude": location.latitude, "longitude": location.longitude}
-						return True
-					else:
-						self._resultado = {"error": "Não consegui identificar as coordenadas da região informada"}
-						return False
-				#Se tiver bairro e cidade
+				geolocator = Nominatim(user_agent="geoloc")
+				location = geolocator.geocode(endereco['localidade'] + ", " + endereco['bairro'])
+				#Se encontrar o bairro
+				if (location != None):
+					self._resultado = {"latitude": location.latitude, "longitude": location.longitude}
+					return True
+				#Se tiver apenas cidade
 				else:
 					geolocator = Nominatim(user_agent="test_app")
-					location = geolocator.geocode(endereco['bairro'] + ", " + endereco['localidade'])
-					try:
-						geolocator = Nominatim(user_agent="test_app")
-						location = geolocator.geocode(endereco['localidade'])
-						self._resultado = {"latitude": location.latitude, "longitude": location.longitude}
-						return True
-					except:
-						self._resultado = {"error": "Não consegui identificar as coordenadas da região informada"}
-						return False
+					location = geolocator.geocode(endereco['localidade'])
+					self._resultado = {"latitude": location.latitude, "longitude": location.longitude}
+					return True
 			else:
 				return False
