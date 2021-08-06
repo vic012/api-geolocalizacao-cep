@@ -30,36 +30,22 @@ class Coordenadas:
 
 				#Se o endereço não tiver bairro
 				if (endereco['bairro'] == ""):
-					geolocator = Nominatim(user_agent="geo_cep")
+					geolocator = Nominatim(user_agent="test_app")
 					location = geolocator.geocode(endereco['localidade'])
 					if (location != None):
-						self._resultado = {"latitude": location.latitude, "longitude": location.longitude, "Nivel": "Cidade"}
+						self._resultado = {"latitude": location.latitude, "longitude": location.longitude}
 						return True
 					else:
 						self._resultado = {"error": "Não consegui identificar as coordenadas da região informada"}
 						return False
-				elif (endereco['logradouro'] != ""):
-					geolocator = Nominatim(user_agent="geo_cep")
-					location = geolocator.geocode(endereco['logradouro'] + ", " + endereco['localidade'] + " - " + endereco['bairro'])
-					if (location != None):
-						self._resultado = {"latitude": location.latitude, "longitude": location.longitude, "Nivel": "Rua"}
-						return True
-					else:
-						location = geolocator.geocode(endereco['localidade'] + " - " + endereco['bairro'])
-						if (location != None):
-							self._resultado = {"latitude": location.latitude, "longitude": location.longitude, "Nivel": "Bairro"}
-							return True
-						else:
-							self._resultado = {"error": "Não consegui identificar as coordenadas da região informada"}
-							return False
 				#Se tiver bairro e cidade
 				else:
-					geolocator = Nominatim(user_agent="geo_cep")
+					geolocator = Nominatim(user_agent="test_app")
 					location = geolocator.geocode(endereco['bairro'] + ", " + endereco['localidade'])
 					try:
-						geolocator = Nominatim(user_agent="geo_cep")
+						geolocator = Nominatim(user_agent="test_app")
 						location = geolocator.geocode(endereco['localidade'])
-						self._resultado = {"Cidade": endereco['localidade'], "Bairro": endereco['bairro'], "Rua": endereco['logradouro'], "latitude": location.latitude, "longitude": location.longitude}
+						self._resultado = {"latitude": location.latitude, "longitude": location.longitude}
 						return True
 					except:
 						self._resultado = {"error": "Não consegui identificar as coordenadas da região informada"}
